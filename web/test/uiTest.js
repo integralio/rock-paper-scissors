@@ -4,37 +4,7 @@ let sinonChai = require("sinon-chai");
 let React = require("react");
 let dom = require("react-dom");
 chai.use(sinonChai);
-
-class ReactWrapper extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {result: ''};
-    }
-
-    componentDidMount() {
-        this.props.game.play(null, null, this);
-    }
-
-    render() {
-        return <div>{this.state.result}</div>
-    }
-
-    playerOneWins() {
-        this.setState({result: 'player one wins'})
-    }
-
-    playerTwoWins() {
-        this.setState({result: 'player two wins'})
-    }
-
-    bothPlayersTied() {
-        this.setState({result: 'there was a tie'})
-    }
-
-    tryAgain() {
-        this.setState({result: 'invalid input, please try again'});
-    }
-}
+let WebUi = require("../src/WebUi");
 
 describe('A game is played', function() {
     var div;
@@ -52,7 +22,7 @@ describe('A game is played', function() {
                     ui.playerOneWins();
                 }
             };
-            dom.render(<ReactWrapper game={game}/>, div);
+            dom.render(<WebUi game={game}/>, div);
             expect(div.innerText).to.contain("player one wins");
         });
         it('should show player 2 wins when player 2 wins', function () {
@@ -61,7 +31,7 @@ describe('A game is played', function() {
                     ui.playerTwoWins();
                 }
             };
-            dom.render(<ReactWrapper game={game} />, div);
+            dom.render(<WebUi game={game} />, div);
             expect(div.innerText).to.contain("player two wins");
         })
     });
@@ -71,7 +41,7 @@ describe('A game is played', function() {
                 ui.bothPlayersTied();
             }
         };
-        dom.render(<ReactWrapper game={game} />, div);
+        dom.render(<WebUi game={game} />, div);
         expect(div.innerText).to.contain("there was a tie");
     })
     it('should indicate there was invalid input', function () {
@@ -80,7 +50,7 @@ describe('A game is played', function() {
                 ui.tryAgain()
             }
         };
-        dom.render(<ReactWrapper game={game} />, div);
+        dom.render(<WebUi game={game} />, div);
         expect(div.innerText).to.contain("invalid input, please try again");
     })
 });
