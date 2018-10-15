@@ -88,43 +88,48 @@ describe('Playing a round', function () {
 describe("retrieving game round history", function () {
 
     let game;
-    let ui;
+    let gameUi;
+    let historyUi;
 
     beforeEach(() => {
         game = new Game()
-        ui = {
+        gameUi = {
             "playerOneWins": sinon.spy(),
             "playerTwoWins": sinon.spy(),
             "tryAgain": sinon.spy(),
+            "bothPlayersTied": sinon.spy()
+        };
+        historyUi = {
             "displayRoundHistory": sinon.spy()
         }
     });
 
     it("should display no history if no rounds have been played", function () {
-        game.displayRoundHistory(ui);
-        expect(ui.displayRoundHistory).to.be.calledOnceWith([]);
+        game.displayRoundHistory(historyUi);
+        expect(historyUi.displayRoundHistory).to.be.calledOnceWith([]);
     });
 
     it("should display a result for one round played", function () {
-        game.playRound("rock", "scissors", ui);
-        game.displayRoundHistory(ui);
+        game.playRound("rock", "scissors", gameUi);
+        game.displayRoundHistory(historyUi);
         gameResult = new RoundResult("rock", "scissors", "playerOneWins");
-        expect(ui.displayRoundHistory).to.be.calledOnceWith([gameResult]);
+        expect(historyUi.displayRoundHistory).to.be.calledOnceWith([gameResult]);
     });
 
     it("should display results for multiple rounds played", function () {
-        game.playRound("rock", "scissors", ui);
-        game.playRound("scissors", "rock", ui);
-        game.displayRoundHistory(ui);
+        game.playRound("rock", "scissors", gameUi);
+        game.playRound("scissors", "rock", gameUi);
+        game.displayRoundHistory(historyUi);
         firstResult = new RoundResult("rock", "scissors", "playerOneWins");
         secondResult = new RoundResult("scissors", "rock", "playerTwoWins");
-        expect(ui.displayRoundHistory).to.be.calledOnceWith([firstResult, secondResult]);
+        expect(historyUi.displayRoundHistory).to.be.calledOnceWith([firstResult, secondResult]);
     });
 
     it("should not display a round history entry for one invalid input", function () {
-        game.playRound("rock", "elephant", ui);
-        game.displayRoundHistory(ui);
-        expect(ui.displayRoundHistory).to.be.calledWith([]);
+        game.playRound("rock", "elephant", gameUi);
+        game.displayRoundHistory(historyUi);
+        result = new RoundResult("rock", "elephant", "tryAgain");
+        expect(historyUi.displayRoundHistory).to.be.calledWith([result]);
     });
 
 });

@@ -8,23 +8,23 @@ class Game {
     }
 
     playRound(player1, player2, ui) {
-        if (this.isInvalidShape(player2) || this.isInvalidShape(player1)) {
-            ui.tryAgain();
-            return;
-        }
-
         let result;
-        if(player1 === player2) {
-            ui.bothPlayersTied()
-            result = "bothPlayersTied"
+
+        if (this.isInvalidShape(player2) || this.isInvalidShape(player1)) {
+            result = "tryAgain";
+        } else if(player1 === player2) {
+            result = "bothPlayersTied";
         } else if (this.playerTwoWins(player1.toLowerCase(), player2.toLowerCase())) {
-            ui.playerTwoWins()
             result = "playerTwoWins"
         } else {
-            ui.playerOneWins()
             result = "playerOneWins"
         }
 
+        this.makeResult(player1, player2, ui, result);
+    }
+
+    makeResult(player1, player2, ui, result) {
+        ui[result]();
         this.roundResults.push(new RoundResult(player1, player2, result));
     }
 
