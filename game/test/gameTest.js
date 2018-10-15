@@ -5,14 +5,17 @@ chai.use(sinonChai)
 let sinon = require("sinon")
 let Game = require("../src/game");
 let RoundResult = require("../src/roundResult");
+let RoundHistory = require("../src/roundHistory");
 
 describe('Playing a round', function () {
 
+    let roundHistory;
     let game;
     let ui;
 
     beforeEach(() => {
-        game = new Game()
+        roundHistory = new RoundHistory();
+        game = new Game(roundHistory);
         ui = {
             "playerOneWins": sinon.spy(),
             "playerTwoWins": sinon.spy(),
@@ -87,12 +90,14 @@ describe('Playing a round', function () {
 
 describe("retrieving game round history", function () {
 
+    let roundHistory;
     let game;
     let gameUi;
     let historyUi;
 
     beforeEach(() => {
-        game = new Game()
+        roundHistory = new RoundHistory();
+        game = new Game(roundHistory);
         gameUi = {
             "playerOneWins": sinon.spy(),
             "playerTwoWins": sinon.spy(),

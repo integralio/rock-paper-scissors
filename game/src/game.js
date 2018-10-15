@@ -1,9 +1,7 @@
-let RoundResult = require("./roundResult");
-
 class Game {
 
-    constructor() {
-        this.roundResults = [];
+    constructor(roundHistory) {
+        this.roundHistory = roundHistory;
         this.gameshapes = ["rock", "paper", "scissors"];
     }
 
@@ -25,7 +23,7 @@ class Game {
 
     makeResult(player1, player2, ui, result) {
         ui[result]();
-        this.roundResults.push(new RoundResult(player1, player2, result));
+        this.roundHistory.addResult(player1, player2, result);
     }
 
     playerTwoWins(player1, player2) {
@@ -39,10 +37,10 @@ class Game {
     }
 
     displayRoundHistory(ui) {
-        if (this.roundResults.length === 0) {
+        if (this.roundHistory.count() === 0) {
             ui.displayEmptyRoundHistory();
         } else {
-            ui.displayRoundHistory(this.roundResults);
+            ui.displayRoundHistory(this.roundHistory.getRoundResults());
         }
     }
 
