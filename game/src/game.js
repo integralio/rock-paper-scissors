@@ -5,7 +5,7 @@ class Game {
         this.gameshapes = ["rock", "paper", "scissors"];
     }
 
-    playRound(player1, player2, ui) {
+    playRound(player1, player2, gameDelegate) {
         let result;
 
         if (this.isInvalidShape(player2) || this.isInvalidShape(player1)) {
@@ -18,7 +18,7 @@ class Game {
             result = "playerOneWins"
         }
 
-        this.makeResult(player1, player2, ui, result);
+        this.makeResult(player1, player2, gameDelegate, result);
     }
 
     makeResult(player1, player2, ui, result) {
@@ -36,11 +36,11 @@ class Game {
         return !this.gameshapes.includes(shape.toLowerCase());
     }
 
-    displayRoundHistory(ui) {
+    notifyRoundHistory(historyDelegate) {
         if (this.roundHistory.count() === 0) {
-            ui.displayEmptyRoundHistory();
+            historyDelegate.onEmptyRoundHistory();
         } else {
-            ui.displayRoundHistory(this.roundHistory.getRoundResults());
+            historyDelegate.onRetrievedRoundHistory(this.roundHistory.getRoundResults());
         }
     }
 

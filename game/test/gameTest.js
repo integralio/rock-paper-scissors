@@ -105,37 +105,37 @@ describe("retrieving game round history", function () {
             "bothPlayersTied": sinon.spy()
         };
         historyUi = {
-            "displayRoundHistory": sinon.spy(),
-            "displayEmptyRoundHistory": sinon.spy()
+            "onRetrievedRoundHistory": sinon.spy(),
+            "onEmptyRoundHistory": sinon.spy()
         }
     });
 
     it("should display no history if no rounds have been played", function () {
-        game.displayRoundHistory(historyUi);
-        expect(historyUi.displayEmptyRoundHistory).to.be.called;
+        game.notifyRoundHistory(historyUi);
+        expect(historyUi.onEmptyRoundHistory).to.be.called;
     });
 
     it("should display a result for one round played", function () {
         game.playRound("rock", "scissors", gameUi);
-        game.displayRoundHistory(historyUi);
+        game.notifyRoundHistory(historyUi);
         gameResult = new RoundResult("rock", "scissors", "playerOneWins");
-        expect(historyUi.displayRoundHistory).to.be.calledOnceWith([gameResult]);
+        expect(historyUi.onRetrievedRoundHistory).to.be.calledOnceWith([gameResult]);
     });
 
     it("should display results for multiple rounds played", function () {
         game.playRound("rock", "scissors", gameUi);
         game.playRound("scissors", "rock", gameUi);
-        game.displayRoundHistory(historyUi);
+        game.notifyRoundHistory(historyUi);
         firstResult = new RoundResult("rock", "scissors", "playerOneWins");
         secondResult = new RoundResult("scissors", "rock", "playerTwoWins");
-        expect(historyUi.displayRoundHistory).to.be.calledOnceWith([firstResult, secondResult]);
+        expect(historyUi.onRetrievedRoundHistory).to.be.calledOnceWith([firstResult, secondResult]);
     });
 
     it("should not display a round history entry for one invalid input", function () {
         game.playRound("rock", "elephant", gameUi);
-        game.displayRoundHistory(historyUi);
+        game.notifyRoundHistory(historyUi);
         result = new RoundResult("rock", "elephant", "tryAgain");
-        expect(historyUi.displayRoundHistory).to.be.calledWith([result]);
+        expect(historyUi.onRetrievedRoundHistory).to.be.calledWith([result]);
     });
 
 });
