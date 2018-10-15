@@ -39,7 +39,11 @@ class Game {
     }
 
     displayRoundHistory(ui) {
-        ui.displayRoundHistory(this.roundResults);
+        if (this.roundResults.length === 0) {
+            ui.displayEmptyRoundHistory();
+        } else {
+            ui.displayRoundHistory(this.roundResults);
+        }
     }
 
 }

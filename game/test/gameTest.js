@@ -100,13 +100,14 @@ describe("retrieving game round history", function () {
             "bothPlayersTied": sinon.spy()
         };
         historyUi = {
-            "displayRoundHistory": sinon.spy()
+            "displayRoundHistory": sinon.spy(),
+            "displayEmptyRoundHistory": sinon.spy()
         }
     });
 
     it("should display no history if no rounds have been played", function () {
         game.displayRoundHistory(historyUi);
-        expect(historyUi.displayRoundHistory).to.be.calledOnceWith([]);
+        expect(historyUi.displayEmptyRoundHistory).to.be.called;
     });
 
     it("should display a result for one round played", function () {
