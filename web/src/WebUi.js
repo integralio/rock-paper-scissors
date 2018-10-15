@@ -7,7 +7,7 @@ class WebUi extends React.Component {
     }
 
     componentDidMount() {
-        this.props.game.play(null, null, this);
+        this.props.game.playRound(null, null, this);
     }
 
     render() {

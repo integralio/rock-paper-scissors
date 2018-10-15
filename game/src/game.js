@@ -1,22 +1,31 @@
+let RoundResult = require("./roundResult");
+
 class Game {
 
     constructor() {
+        this.roundResults = [];
         this.gameshapes = ["rock", "paper", "scissors"];
     }
 
-    play(player1, player2, ui) {
+    playRound(player1, player2, ui) {
         if (this.isInvalidShape(player2) || this.isInvalidShape(player1)) {
             ui.tryAgain();
             return;
         }
 
+        let result;
         if(player1 === player2) {
             ui.bothPlayersTied()
+            result = "bothPlayersTied"
         } else if (this.playerTwoWins(player1.toLowerCase(), player2.toLowerCase())) {
             ui.playerTwoWins()
+            result = "playerTwoWins"
         } else {
             ui.playerOneWins()
+            result = "playerOneWins"
         }
+
+        this.roundResults.push(new RoundResult(player1, player2, result));
     }
 
     playerTwoWins(player1, player2) {
@@ -27,6 +36,10 @@ class Game {
 
     isInvalidShape(shape) {
         return !this.gameshapes.includes(shape.toLowerCase());
+    }
+
+    displayRoundHistory(ui) {
+        ui.displayRoundHistory(this.roundResults);
     }
 
 }
