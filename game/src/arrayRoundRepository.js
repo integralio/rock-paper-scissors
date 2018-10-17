@@ -1,6 +1,6 @@
 let RoundResult = require('./roundResult');
 
-class RoundHistory {
+class ArrayRoundRepository {
 
     constructor() {
         this.roundResults = [];
@@ -21,4 +21,4 @@ class RoundHistory {
 
 }
 
-module.exports = RoundHistory
+module.exports = ArrayRoundRepository

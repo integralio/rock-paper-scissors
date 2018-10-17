@@ -1,11 +1,7 @@
 let chai = require("chai");
 let expect = chai.expect;
-let sinonChai = require("sinon-chai")
-chai.use(sinonChai)
-let sinon = require("sinon")
-let Game = require("../src/game");
-let RoundResult = require("../src/roundResult");
-let RoundHistory = require("../src/roundHistory");
+let sinonChai = require("sinon-chai");
+chai.use(sinonChai);
 
 let contract = function(namedRepo) {
     let repository;
@@ -49,6 +45,4 @@ let contract = function(namedRepo) {
     });
 };
 
-describe("Array Repository", function() {
-    contract(RoundHistory);
-});
+module.exports = contract;

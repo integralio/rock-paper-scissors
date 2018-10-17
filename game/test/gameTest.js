@@ -5,7 +5,7 @@ chai.use(sinonChai)
 let sinon = require("sinon")
 let Game = require("../src/game");
 let RoundResult = require("../src/roundResult");
-let RoundHistory = require("../src/roundHistory");
+let RoundHistory = require("../src/arrayRoundRepository");
 
 describe('Playing a round', function () {
 
