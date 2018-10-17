@@ -36,11 +36,11 @@ class Game {
         return !this.gameshapes.includes(shape.toLowerCase());
     }
 
-    notifyRoundHistory(historyDelegate) {
+    notifyRoundHistory(historyObserver) {
         if (this.roundHistory.count() === 0) {
-            historyDelegate.onEmptyRoundHistory();
+            historyObserver.onEmptyRoundHistory();
         } else {
-            historyDelegate.onRetrievedRoundHistory(this.roundHistory.getRoundResults());
+            historyObserver.onRetrievedRoundHistory(this.roundHistory.getRoundResults());
         }
     }
 

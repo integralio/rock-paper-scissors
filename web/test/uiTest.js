@@ -18,7 +18,7 @@ describe('A game is played', function() {
     describe('A player wins a game', function () {
         it('should shows player 1 wins when player 1 wins', function () {
             var game = {
-                play: function (player1, player2, ui) {
+                playRound: function (player1, player2, ui) {
                     ui.playerOneWins();
                 }
             };
@@ -27,7 +27,7 @@ describe('A game is played', function() {
         });
         it('should show player 2 wins when player 2 wins', function () {
             let game = {
-                play: function (player1, player2, ui) {
+                playRound: function (player1, player2, ui) {
                     ui.playerTwoWins();
                 }
             };
@@ -37,7 +37,7 @@ describe('A game is played', function() {
     });
     it('should show there was a tie', function () {
         let game = {
-            play: function (player1, player2, ui) {
+            playRound: function (player1, player2, ui) {
                 ui.bothPlayersTied();
             }
         };
@@ -46,7 +46,7 @@ describe('A game is played', function() {
     })
     it('should indicate there was invalid input', function () {
         let game = {
-            play: function (player1, player2, ui) {
+            playRound: function (player1, player2, ui) {
                 ui.tryAgain()
             }
         };
